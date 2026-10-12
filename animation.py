@@ -126,10 +126,10 @@ def draw_hammer(surface, time_seconds):
     y = FLOOR_Y - 135 - bounce
 
     hammer = pygame.Surface((170, 112), pygame.SRCALPHA)
-    pygame.draw.roundrect(hammer, INK, (57, 39, 17, 69), border_radius=6)
-    pygame.draw.roundrect(hammer, ORANGE, (60, 42, 11, 63), border_radius=5)
-    pygame.draw.roundrect(hammer, INK, (13, 10, 112, 47), border_radius=9)
-    pygame.draw.roundrect(hammer, (224, 235, 217), (18, 15, 102, 36), border_radius=6)
+    pygame.draw.rect(hammer, INK, (57, 39, 17, 69), border_radius=6)
+    pygame.draw.rect(hammer, ORANGE, (60, 42, 11, 63), border_radius=5)
+    pygame.draw.rect(hammer, INK, (13, 10, 112, 47), border_radius=9)
+    pygame.draw.rect(hammer, (224, 235, 217), (18, 15, 102, 36), border_radius=6)
     label = SMALL_FONT.render("HAMMER", True, INK)
     hammer.blit(label, label.get_rect(center=(69, 33)))
     rotated = pygame.transform.rotate(hammer, math.sin(time_seconds * 5) * 8)
@@ -177,7 +177,7 @@ def export_video(output_path):
     try:
         for frame_number in range(FRAME_COUNT):
             frame = render_frame(frame_number)
-            process.stdin.write(pygame.image.tostring(frame, "RGB"))
+            process.stdin.write(pygame.image.tobytes(frame, "RGB"))
     except BrokenPipeError:
         process.wait()
         raise RuntimeError("FFmpeg stopped before the video finished rendering.")
